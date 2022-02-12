@@ -2,7 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
 
-const appPageProps = {
+const appPageProps: {
+  filmCardTitle:string,
+  filmCardGenre:string,
+  filmCardYear: number,
+} = {
   filmCardTitle:'The Grand Budapest Hotel',
   filmCardGenre:'Drama',
   filmCardYear: 2014,

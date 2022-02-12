@@ -6,13 +6,9 @@ type AppProps = {
   filmCardYear: number,
 }
 
-function App({filmCardTitle,filmCardGenre,filmCardYear}: AppProps){
+function App(appProps: AppProps){
   return (
-    <MainPage
-      filmCardTitle = {filmCardTitle}
-      filmCardGenre = {filmCardGenre}
-      filmCardYear = {filmCardYear}
-    />
+    <MainPage {...appProps}/>
   );
 }
 

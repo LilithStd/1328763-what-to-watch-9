@@ -8,14 +8,10 @@ type MainPageProps = {
 
 }
 
-function MainPage({filmCardTitle, filmCardGenre, filmCardYear}: MainPageProps) {
+function MainPage(mainPageProps: MainPageProps) {
   return (
     <>
-      <FilmCard
-        filmCardTitle={filmCardTitle}
-        filmCardGenre={filmCardGenre}
-        filmCardYear={filmCardYear}
-      />
+      <FilmCard {...mainPageProps}/>
       <PageContent />
     </>
   );
