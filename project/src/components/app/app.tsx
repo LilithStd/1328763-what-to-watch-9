@@ -1,10 +1,7 @@
 import MainPage from '../main-page/main-page';
+import {Film} from '../../types/types';
 
-type AppProps = {
-  filmCardTitle: string,
-  filmCardGenre: string,
-  filmCardYear: number,
-}
+type AppProps = Film;
 
 function App(appProps: AppProps){
   return (

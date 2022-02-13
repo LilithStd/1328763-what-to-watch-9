@@ -1,12 +1,9 @@
 import FilmCard from '../film-card/film-card';
 import PageContent from '../page-content/page-content';
+import {Film} from '../../types/types';
 
-type MainPageProps = {
-  filmCardTitle: string,
-  filmCardGenre: string,
-  filmCardYear: number,
+type MainPageProps = Film;
 
-}
 
 function MainPage(mainPageProps: MainPageProps) {
   return (
