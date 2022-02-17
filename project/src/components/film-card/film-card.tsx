@@ -1,7 +1,7 @@
 import Header from '../header/header';
-import {Film} from '../../types/types';
+import {Movie} from '../../types/types';
 
-type FilmCardProps = Film;
+type FilmCardProps = Movie;
 
 function FilmCard({filmCardTitle, filmCardGenre, filmCardYear}: FilmCardProps) {
   return(
