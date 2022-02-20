@@ -1,8 +1,8 @@
 
-type Film = {
+type MovieProps = {
   filmCardTitle: string,
   filmCardGenre: string,
   filmCardYear: number,
 }
 
-export type {Film};
+export type {MovieProps};

@@ -1,4 +1,4 @@
-import FilmCardSmall from '../film-card-small/film-card-small';
+import {FilmCardSmall} from '../film-card-small/film-card-small';
 
 function FilmList() {
   return(
@@ -8,4 +8,4 @@ function FilmList() {
   );
 }
 
-export default FilmList;
+export {FilmList};
