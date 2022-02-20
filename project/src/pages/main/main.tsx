@@ -1,8 +1,9 @@
-import FilmCard from '../../components/film-card/film-card';
-import PageContent from '../../components/page-content/page-content';
-import {Movie} from '../../types/types';
+import {MovieProps} from '../../types/types';
+import {FilmCard} from '../../components/film-card/film-card';
+import {PageContent} from '../../components/page-content/page-content';
 
-type MainPageProps = Movie;
+
+type MainPageProps = MovieProps;
 
 
 function Main(mainPageProps: MainPageProps) {
@@ -14,4 +15,4 @@ function Main(mainPageProps: MainPageProps) {
   );
 }
 
-export default Main;
+export {Main};

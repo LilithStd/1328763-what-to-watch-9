@@ -13,4 +13,4 @@ function UserBlock()  {
   );
 }
 
-export default UserBlock;
+export {UserBlock};

@@ -142,4 +142,4 @@ function Film() {
   );
 }
 
-export default Film;
+export {Film};

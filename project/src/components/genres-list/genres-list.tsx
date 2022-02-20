@@ -35,4 +35,4 @@ function GenresList() {
   );
 }
 
-export default GenresList;
+export {GenresList};

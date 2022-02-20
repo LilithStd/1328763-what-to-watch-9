@@ -115,4 +115,4 @@ function MyList() {
   );
 }
 
-export default MyList;
+export {MyList};

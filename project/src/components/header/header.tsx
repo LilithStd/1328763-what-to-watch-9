@@ -1,5 +1,5 @@
-import Logo from '../logo/logo';
-import UserBlock from '../user-block/user-block';
+import {Logo} from '../logo/logo';
+import {UserBlock} from '../user-block/user-block';
 
 function Header() {
   return(
@@ -10,4 +10,4 @@ function Header() {
   );
 }
 
-export default Header;
+export {Header};

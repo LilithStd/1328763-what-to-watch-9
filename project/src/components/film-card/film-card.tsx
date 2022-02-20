@@ -1,7 +1,8 @@
-import Header from '../header/header';
-import {Movie} from '../../types/types';
+import {MovieProps} from '../../types/types';
+import {Header} from '../header/header';
 
-type FilmCardProps = Movie;
+
+type FilmCardProps = MovieProps;
 
 function FilmCard({filmCardTitle, filmCardGenre, filmCardYear}: FilmCardProps) {
   return(
@@ -47,4 +48,4 @@ function FilmCard({filmCardTitle, filmCardGenre, filmCardYear}: FilmCardProps) {
   );
 }
 
-export default FilmCard;
+export {FilmCard};

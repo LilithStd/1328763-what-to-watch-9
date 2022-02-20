@@ -1,6 +1,5 @@
-// import FilmCardSmall from '../film-card-small/film-card-small';
-import Footer from '../footer/footer';
-import Catalog from '../catalog/catalog';
+import {Footer} from '../footer/footer';
+import {Catalog} from '../catalog/catalog';
 
 function PageContent() {
 
@@ -12,4 +11,4 @@ function PageContent() {
   );
 }
 
-export default PageContent;
+export {PageContent};

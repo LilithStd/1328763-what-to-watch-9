@@ -6,4 +6,4 @@ function ShowMoreButton() {
   );
 }
 
-export default ShowMoreButton;
+export {ShowMoreButton};

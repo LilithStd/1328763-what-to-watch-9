@@ -1,6 +1,6 @@
-import GenresList from '../genres-list/genres-list';
-import ShowMoreButton from '../show-more-button/show-more-button';
-import FilmList from '../film-list/film-list';
+import {GenresList} from '../genres-list/genres-list';
+import {ShowMoreButton} from '../show-more-button/show-more-button';
+import {FilmList} from '../film-list/film-list';
 
 function Catalog()  {
   return(
@@ -13,4 +13,4 @@ function Catalog()  {
   );
 }
 
-export default Catalog;
+export {Catalog};

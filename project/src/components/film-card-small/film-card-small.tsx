@@ -11,4 +11,4 @@ function FilmCardSmall()  {
   );
 }
 
-export default FilmCardSmall;
+export  {FilmCardSmall};

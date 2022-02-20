@@ -78,4 +78,4 @@ function AddReview()  {
   );
 }
 
-export default AddReview;
+export {AddReview};

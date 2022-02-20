@@ -16,4 +16,5 @@ function PrivateRoute (props: PrivateRouteProps) {
   );
 }
 
-export default PrivateRoute;
+
+export {PrivateRoute};
