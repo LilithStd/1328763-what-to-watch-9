@@ -1,5 +1,5 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import {MovieProps} from '../../types/types';
+import {FilmsTypes, FilmTypes} from '../../types/types';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {Main} from '../../pages/main/main';
 import {SignIn} from '../../pages/sign-in/sign-in';
@@ -11,28 +11,32 @@ import {NotFound} from '../../pages/not-found/not-found';
 import {PrivateRoute} from '../private-route/private-route';
 
 
-type AppProps = MovieProps;
+type AppProps = {
+  films: FilmsTypes
+};
 
-function App(appProps: AppProps){
+function App({films}: AppProps){
+  const filmPromo: FilmTypes = films[0];
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<Main {...appProps}/>}/>
+        <Route path={AppRoute.Main} element={<Main filmPromo = {filmPromo} films = {films}/>}/>
         <Route path={AppRoute.SignIn} element={<SignIn/>}/>
         <Route path={AppRoute.MyList} element={
-          <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-            <MyList/>
+          <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <MyList films={films}/>
           </PrivateRoute>
         }
         />
-        <Route path={AppRoute.Film} element={<Film/>}/>
+        <Route path={AppRoute.Film} element={<Film films = {films}/>}/>
         <Route path={AppRoute.AddReview} element={
-          <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-            <AddReview/>
+          <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <AddReview films = {films}/>
           </PrivateRoute>
         }
         />
-        <Route path={AppRoute.Player} element={<Player/>}/>
+        <Route path={AppRoute.Player} element={<Player films = {films}/>}/>
         <Route path="*" element={<NotFound/>}/>
       </Routes>
     </BrowserRouter>

@@ -5,7 +5,7 @@ type MovieProps = {
   filmCardYear: number,
 }
 
-type FilmProps = {
+type FilmTypes = {
   id: number
   name: string
   posterImage: string
@@ -25,7 +25,7 @@ type FilmProps = {
   isFavorite: boolean
 }
 
-type Comment = {
+type CommentProps = {
     comment: string
     date: string
     id: number
@@ -36,4 +36,6 @@ type Comment = {
     }
 }
 
-export type {MovieProps, FilmProps, Comment};
+type FilmsTypes = FilmTypes[];
+
+export type {MovieProps, FilmTypes, FilmsTypes, CommentProps};

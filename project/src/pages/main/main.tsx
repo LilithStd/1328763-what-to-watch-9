@@ -1,16 +1,19 @@
-import {MovieProps} from '../../types/types';
+import {FilmTypes, FilmsTypes} from '../../types/types';
 import {FilmCard} from '../../components/film-card/film-card';
 import {PageContent} from '../../components/page-content/page-content';
 
 
-type MainPageProps = MovieProps;
+type MainPageProps =  {
+  films: FilmsTypes
+  filmPromo: FilmTypes
+}
 
 
-function Main(mainPageProps: MainPageProps) {
+function Main({filmPromo, films}: MainPageProps) {
   return (
     <>
-      <FilmCard {...mainPageProps}/>
-      <PageContent />
+      <FilmCard filmPromo = {filmPromo}/>
+      <PageContent films = {films}/>
     </>
   );
 }
