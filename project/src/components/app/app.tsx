@@ -1,5 +1,5 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import {FilmsTypes, FilmTypes} from '../../types/types';
+import {FilmTypes} from '../../types/types';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {Main} from '../../pages/main/main';
 import {SignIn} from '../../pages/sign-in/sign-in';
@@ -12,11 +12,11 @@ import {PrivateRoute} from '../private-route/private-route';
 
 
 type AppProps = {
-  films: FilmsTypes
+  films: FilmTypes[]
 };
 
 function App({films}: AppProps){
-  const filmPromo: FilmTypes = films[0];
+  const filmPromo = films[0];
 
   return (
     <BrowserRouter>

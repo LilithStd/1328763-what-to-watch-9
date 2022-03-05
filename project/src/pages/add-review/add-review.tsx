@@ -3,18 +3,18 @@ import {Logo} from  '../../components/logo/logo';
 import {UserBlock} from '../../components/user-block/user-block';
 import {NotFound} from '../not-found/not-found';
 import {AddReviewForm} from '../add-review/add-review-form/add-review-form';
-import {FilmsTypes} from '../../types/types';
+import {FilmTypes} from '../../types/types';
 
 
 type AddReviewProps = {
-  films:FilmsTypes;
+  films:FilmTypes[];
 }
 
 function AddReview({films}: AddReviewProps)  {
 
-  const currentFilmId = useParams();
+  const params = useParams();
 
-  const currentId = Number(currentFilmId.id);
+  const currentId = Number(params.id);
 
   const currentFilm = films.find((element) => element.id === currentId);
 

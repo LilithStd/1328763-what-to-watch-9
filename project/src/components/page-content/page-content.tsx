@@ -1,9 +1,9 @@
 import {Footer} from '../footer/footer';
 import {Catalog} from '../catalog/catalog';
-import {FilmsTypes} from '../../types/types';
+import {FilmTypes} from '../../types/types';
 
 type PageContentProps = {
-  films: FilmsTypes
+  films: FilmTypes[]
 }
 
 function PageContent({films}: PageContentProps) {

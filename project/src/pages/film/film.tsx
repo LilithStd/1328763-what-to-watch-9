@@ -3,19 +3,18 @@ import {Link, useParams, useNavigate} from 'react-router-dom';
 import {Footer} from '../../components/footer/footer';
 import {Header}  from '../../components/header/header';
 import {NotFound} from '../../pages/not-found/not-found';
-// import {FilmDetails}  from '../../pages/film/film-details/film-details';
 import {FilmList} from '../../components/film-list/film-list';
-import {FilmsTypes}  from '../../types/types';
+import {FilmTypes}  from '../../types/types';
 
 type FilmProps = {
-  films: FilmsTypes;
+  films: FilmTypes[];
 }
 
 function Film({films}: FilmProps) {
-  const currentFilmId = useParams();
+  const params = useParams();
   const navigate = useNavigate();
 
-  const currentId = Number(currentFilmId.id);
+  const currentId = Number(params.id);
 
   const currentFilm = films.find((element) => element.id === currentId);
 

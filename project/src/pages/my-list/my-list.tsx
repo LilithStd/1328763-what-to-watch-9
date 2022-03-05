@@ -1,12 +1,11 @@
 import {Footer} from '../../components/footer/footer';
-// import {Header} from '../../components/header/header';
 import {FilmList} from '../../components/film-list/film-list';
 import {Logo} from '../../components/logo/logo';
-import { FilmsTypes } from '../../types/types';
+import {FilmTypes } from '../../types/types';
 import {UserBlock} from '../../components/user-block/user-block';
 
 type MyListProps = {
-  films: FilmsTypes
+  films: FilmTypes[]
 }
 
 function MyList({films}: MyListProps) {

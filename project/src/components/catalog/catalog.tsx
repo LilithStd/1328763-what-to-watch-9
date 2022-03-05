@@ -1,10 +1,10 @@
 import {GenresList} from '../genres-list/genres-list';
 import {ShowMoreButton} from '../show-more-button/show-more-button';
 import {FilmList} from '../film-list/film-list';
-import {FilmsTypes} from '../../types/types';
+import {FilmTypes} from '../../types/types';
 
 type CatalogProps = {
-  films: FilmsTypes
+  films: FilmTypes[]
 }
 
 function Catalog({films}: CatalogProps) {

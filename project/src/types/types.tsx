@@ -36,6 +36,4 @@ type CommentProps = {
     }
 }
 
-type FilmsTypes = FilmTypes[];
-
-export type {MovieProps, FilmTypes, FilmsTypes, CommentProps};
+export type {MovieProps, FilmTypes, CommentProps};

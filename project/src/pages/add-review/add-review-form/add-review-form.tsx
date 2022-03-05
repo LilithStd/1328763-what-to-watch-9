@@ -2,20 +2,12 @@ import { ChangeEvent, Fragment, useState } from 'react';
 import {rating} from '../../../const';
 
 function AddReviewForm()  {
-  // const [ratings, setRating] = useState(0);
-  // const [review, setReview] = useState('');
 
   const [formData, setFormData] = useState({
     rating: 0,
     reviewText: '',
   });
 
-  // const onChangeHandler = ({ target }: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
-  //   const { name, value } = target;
-  //   setFormData({ ...formData, [name]: value });
-  // };
-  // eslint-disable-next-line no-console
-  // console.log(formData);
 
   return(
     <div className="add-review">

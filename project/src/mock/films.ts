@@ -1,6 +1,6 @@
-import {FilmsTypes} from '../types/types';
+import {FilmTypes} from '../types/types';
 
-export const filmMock: FilmsTypes = [
+export const filmMock: FilmTypes[] = [
   {
     id: 1,
     name: 'Snatch',

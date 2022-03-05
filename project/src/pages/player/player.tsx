@@ -2,17 +2,17 @@ import {MouseEvent} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
 
 import {NotFound} from '../../pages/not-found/not-found';
-import {FilmsTypes}  from '../../types/types';
+import {FilmTypes}  from '../../types/types';
 
 type playerProps = {
-  films: FilmsTypes;
+  films: FilmTypes[];
 }
 
 function Player({films}: playerProps) {
-  const currentFilmId = useParams();
+  const params = useParams();
   const navigate = useNavigate();
 
-  const currentId = Number(currentFilmId.id);
+  const currentId = Number(params.id);
 
   const currentFilm = films.find((element) => element.id === currentId);
 

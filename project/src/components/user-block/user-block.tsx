@@ -7,7 +7,7 @@ function UserBlock()  {
     <ul className="user-block">
       <li className="user-block__item">
         <div className="user-block__avatar">
-          <img onClick={() => navigate (AppRoute.MyList)} src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+          <img onClick={() => navigate(AppRoute.MyList)} src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
         </div>
       </li>
       <li className="user-block__item">
