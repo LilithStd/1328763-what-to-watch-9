@@ -1,8 +1,36 @@
-function Player() {
+import {MouseEvent} from 'react';
+import {useParams, useNavigate} from 'react-router-dom';
+
+import {NotFound} from '../../pages/not-found/not-found';
+import {FilmTypes}  from '../../types/types';
+
+type playerProps = {
+  films: FilmTypes[];
+}
+
+function Player({films}: playerProps) {
+  const params = useParams();
+  const navigate = useNavigate();
+
+  const currentId = Number(params.id);
+
+  const currentFilm = films.find((element) => element.id === currentId);
+
+  if (!currentFilm) {
+    return <NotFound/>;
+  }
+
+  const {videoLink, name} = currentFilm;
+
+  const clickExitHandler = (evt: MouseEvent<HTMLElement>) => {
+    evt.preventDefault();
+    navigate(-1);
+  };
+
   return(
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg" />
-      <button type="button" className="player__exit">Exit</button>
+      <video src={videoLink} className="player__video" poster="img/player-poster.jpg" />
+      <button type="button" className="player__exit" onClick={clickExitHandler}>Exit</button>
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
@@ -18,7 +46,7 @@ function Player() {
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{name}</div>
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width={27} height={27}>
               <use xlinkHref="#full-screen" />
