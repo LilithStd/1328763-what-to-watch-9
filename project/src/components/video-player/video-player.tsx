@@ -13,19 +13,20 @@ function VideoPlayer({isActive,src, muted, poster}: VideoPlayerProps)  {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
-    const videoCurrent = videoRef.current;
+    const video = videoRef.current;
     const timeout = setTimeout(() => {
-      if (isActive && videoCurrent !== null) {
-        videoCurrent.play();
+      if (isActive && video !== null) {
+        video.play();
       }
     }, TIMER);
+
     return () => {
-      if (isActive && videoCurrent) {
-        videoCurrent.src = src;
-      }
       clearTimeout(timeout);
+      if(video) {
+        video.load();
+      }
     };
-  }, [isActive, src]);
+  }, [isActive]);
 
   return(
     <video src={src}
