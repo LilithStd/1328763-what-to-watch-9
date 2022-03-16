@@ -4,13 +4,16 @@ import {Footer} from '../../components/footer/footer';
 import {Header}  from '../../components/header/header';
 import {NotFound} from '../../pages/not-found/not-found';
 import {FilmList} from '../../components/film-list/film-list';
-import {FilmTypes}  from '../../types/types';
+import {FilmTypes, CommentProps}  from '../../types/types';
+import {MORE_LIKE_FILM_COUNT} from '../../const';
+import {FilmTabs} from '../../pages/film/film-tabs/film-tabs';
 
 type FilmProps = {
   films: FilmTypes[];
+  reviews: CommentProps[];
 }
 
-function Film({films}: FilmProps) {
+function Film({films, reviews}: FilmProps) {
   const params = useParams();
   const navigate = useNavigate();
 
@@ -22,8 +25,11 @@ function Film({films}: FilmProps) {
     return <NotFound/>;
   }
 
-  const {id, name, posterImage,backgroundImage, genre, released, rating, description, director, starring, scoresCount} = currentFilm;
-  const actorsStarring = starring.join(', ');
+  const {id, name, posterImage,backgroundImage, genre, released} = currentFilm;
+
+  const filteredFilms = films
+    .filter((item) => (item.genre === currentFilm.genre && item.name !== currentFilm.name))
+    .slice(0, MORE_LIKE_FILM_COUNT);
 
   const clickPlayHandler = (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
@@ -70,31 +76,7 @@ function Film({films}: FilmProps) {
               <img src={posterImage} alt={name} width={218} height={327} />
             </div>
             <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="/#" className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="/#" className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="/#" className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-              <div className="film-rating">
-                <div className="film-rating__score">{rating}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">{scoresCount} ratings</span>
-                </p>
-              </div>
-              <div className="film-card__text">
-                <p>{description}</p>
-                <p className="film-card__director"><strong>Director: {director}</strong></p>
-                <p className="film-card__starring"><strong>Starring: {actorsStarring} and other</strong></p>
-              </div>
+              <FilmTabs film = {currentFilm} reviews = {reviews}/>
             </div>
           </div>
         </div>
@@ -102,7 +84,7 @@ function Film({films}: FilmProps) {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmList films = {films}/>
+          <FilmList films = {filteredFilms}/>
         </section>
         <Footer />
       </div>

@@ -31,8 +31,8 @@ type CommentProps = {
     id: number
     rating: number
     user: {
-    id: number
-    name: string
+      id: number
+      name: string
     }
 }
 
