@@ -1,4 +1,4 @@
-import {useState } from 'react';
+import {useState, useCallback } from 'react';
 import {TabsName} from '../../../const';
 import {FilmTypes, CommentProps} from '../../../types/types';
 import {FilmDetails}  from '../film-details/film-details';
@@ -16,15 +16,10 @@ function FilmTabs ({film, reviews}: FilmTabsProps) {
   const [activeTab, setActiveTab] = useState(TabsName.OVERVIEW);
   const tabs = Object.values(TabsName);
 
-  const handleTabClick = (evt: React.MouseEvent) => {
+  const handleTabClick = useCallback((tabName) => (evt: React.MouseEvent) => {
     evt.preventDefault();
-    if(evt !== null && evt.target instanceof HTMLElement) {
-      const currentTarget = evt.target.dataset.filmnav;
-      if(currentTarget !== undefined)  {
-        setActiveTab(currentTarget);
-      }
-    }
-  };
+    setActiveTab(tabName);
+  }, [setActiveTab]);
 
   const getInfoByActiveTab = (tab: string) => {
     switch (tab) {
@@ -58,12 +53,12 @@ function FilmTabs ({film, reviews}: FilmTabsProps) {
                   ? 'film-nav__item film-nav__item--active'
                   : 'film-nav__item'
               }
-              key={tab + 1}
+              key={tab}
               >
 
                 <a href='/#' className="film-nav__link"
                   data-filmnav={tab}
-                  onClick={handleTabClick}
+                  onClick={handleTabClick(tab)}
                 >
                   {tab}
                 </a>
