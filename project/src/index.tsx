@@ -2,18 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {App} from './components/app/app';
 import {filmMock} from './mock/films';
-// import {filmPromoMock}  from './mock/film-promo';
-
-
-// const appPageProps = {
-//   filmCardTitle:'The Grand Budapest Hotel',
-//   filmCardGenre:'Drama',
-//   filmCardYear: 2014,
-// };
-
+import {commentMock} from './mock/reviews';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App films={filmMock}/>
+    <App films={filmMock} reviews = {commentMock} />
   </React.StrictMode>,
   document.getElementById('root'));

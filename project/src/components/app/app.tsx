@@ -1,5 +1,5 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import {FilmTypes} from '../../types/types';
+import {FilmTypes, CommentProps} from '../../types/types';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {Main} from '../../pages/main/main';
 import {SignIn} from '../../pages/sign-in/sign-in';
@@ -13,9 +13,10 @@ import {PrivateRoute} from '../private-route/private-route';
 
 type AppProps = {
   films: FilmTypes[]
+  reviews: CommentProps[]
 };
 
-function App({films}: AppProps){
+function App({films, reviews}: AppProps){
   const filmPromo = films[0];
 
   return (
@@ -29,7 +30,7 @@ function App({films}: AppProps){
           </PrivateRoute>
         }
         />
-        <Route path={AppRoute.Film} element={<Film films = {films}/>}/>
+        <Route path={AppRoute.Film} element={<Film films = {films} reviews ={reviews}/>}/>
         <Route path={AppRoute.AddReview} element={
           <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
             <AddReview films = {films}/>
