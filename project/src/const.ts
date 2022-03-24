@@ -24,3 +24,6 @@ export const TabsName = {
   DETAILS: 'Details',
   REVIEWS: 'Reviews',
 };
+
+export const DEFAULT_GENRE = 'All genres';
+export const INITIAL_QUANTITY_FILMS = 8;
