@@ -24,6 +24,7 @@ const initialState: GenreReducerProps = {
   countFilmToshow: INITIAL_QUANTITY_FILMS,
 };
 
+
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeGenre, (state, action) => {

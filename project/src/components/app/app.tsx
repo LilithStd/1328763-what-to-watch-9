@@ -1,5 +1,4 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-// import {FilmTypes, CommentProps} from '../../types/types';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {Main} from '../../pages/main/main';
 import {SignIn} from '../../pages/sign-in/sign-in';
@@ -10,19 +9,14 @@ import {AddReview} from '../../pages/add-review/add-review';
 import {NotFound} from '../../pages/not-found/not-found';
 import {PrivateRoute} from '../private-route/private-route';
 import {useAppSelector} from '../../hooks/reduser';
-
-
-// type AppProps = {
-//   films: FilmTypes[]
-//   reviews: CommentProps[]
-// };
+import {getFilms, getReviews, getFilmPromo} from '../../store/selectors';
 
 
 function App(){
-  const filmPromo = useAppSelector((state) => state.filmPromo);
-  const films = useAppSelector((state) => state.films);
-  const reviews = useAppSelector((state) => state.reviews);
-  // const filteredFilm = useAppSelector((state) => state.filteredFilm);
+  const filmPromo = useAppSelector(getFilmPromo);
+  const films = useAppSelector(getFilms);
+  const reviews = useAppSelector(getReviews);
+
 
   return (
     <BrowserRouter>

@@ -2,16 +2,16 @@ import {GenresList} from '../genres-list/genres-list';
 import {ShowMoreButton} from '../show-more-button/show-more-button';
 import {FilmList} from '../film-list/film-list';
 import {FilmTypes} from '../../types/types';
-// import {INITIAL_QUANTITY_FILMS} from '../../const';
 import {useAppSelector} from '../../hooks/reduser';
+import {getFilteredFilm, getCountFilmToshow} from '../../store/selectors';
 
 type CatalogProps = {
   films: FilmTypes[]
 }
 
 function Catalog({films}: CatalogProps) {
-  const filmsTest = useAppSelector((state) => state.filteredFilm);
-  const currentFilmCount = useAppSelector((state) => state.countFilmToshow);
+  const filmsTest = useAppSelector(getFilteredFilm);
+  const currentFilmCount = useAppSelector(getCountFilmToshow);
 
   const filmsToShow = filmsTest.slice(0, currentFilmCount);
   return(

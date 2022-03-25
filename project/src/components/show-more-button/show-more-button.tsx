@@ -3,8 +3,9 @@ import {changeCountFilmToShow} from '../../store/actions';
 
 function ShowMoreButton() {
   const dispatch = useAppDispatch();
+  const changeCountFilmToShowHandler = () => dispatch(changeCountFilmToShow());
   return(
-    <div className="catalog__more" onClick={() => dispatch(changeCountFilmToShow())}>
+    <div className="catalog__more" onClick={changeCountFilmToShowHandler}>
       <button className="catalog__button" type="button">Show more</button>
     </div>
   );

@@ -7,8 +7,9 @@ type GenreItemProps = {
 
 function GenreItem({genre}: GenreItemProps)  {
   const dispatch = useAppDispatch();
+  const changeGenreHandler = () => dispatch(changeGenre(genre));
   return(
-    <li onClick={() => (dispatch(changeGenre(genre))) } className="catalog__genres-item  ">
+    <li onClick={changeGenreHandler} className="catalog__genres-item  ">
       <a href="/#" className="catalog__genres-link">{genre}</a>
     </li>
   );

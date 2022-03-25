@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {App} from './components/app/app';
 import {store} from './store/index';
-// import {filmMock} from './mock/films';
-// import {commentMock} from './mock/reviews';
+
 
 ReactDOM.render(
   <React.StrictMode>
