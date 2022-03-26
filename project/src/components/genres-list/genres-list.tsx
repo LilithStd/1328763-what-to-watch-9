@@ -1,38 +1,19 @@
-function GenresList() {
+import {FilmTypes} from '../../types/types';
+import {GenreItem}  from '../genre-item/genre-item';
+import {DEFAULT_GENRE} from '../../const';
+
+type GenresListProps  = {
+  films: FilmTypes[];
+}
+
+function GenresList({films}: GenresListProps) {
+  const genreList =[DEFAULT_GENRE, ...new Set(films.map((genre) => genre.genre))];
   return(
     <ul className="catalog__genres-list">
-      <li className="catalog__genres-item catalog__genres-item--active">
-        <a href="/#" className="catalog__genres-link">All genres</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="/#" className="catalog__genres-link">Comedies</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="/#" className="catalog__genres-link">Crime</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="/#" className="catalog__genres-link">Documentary</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="/#" className="catalog__genres-link">Dramas</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="/#" className="catalog__genres-link">Horror</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="/#" className="catalog__genres-link">Kids & Family</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="/#" className="catalog__genres-link">Romance</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="/#" className="catalog__genres-link">Sci-Fi</a>
-      </li>
-      <li className="catalog__genres-item">
-        <a href="/#" className="catalog__genres-link">Thrillers</a>
-      </li>
+      {genreList.map((genre) =>  <GenreItem key={genre} genre={genre} />)}
     </ul>
   );
 }
 
 export {GenresList};
+

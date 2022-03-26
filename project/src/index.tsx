@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
 import {App} from './components/app/app';
-import {filmMock} from './mock/films';
-import {commentMock} from './mock/reviews';
+import {store} from './store/index';
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App films={filmMock} reviews = {commentMock} />
+    <Provider store={store}>
+      <App/>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root'));
