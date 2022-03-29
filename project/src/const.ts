@@ -7,6 +7,11 @@ export enum AppRoute {
   Player = 'player/:id',
 }
 
+export enum FilmRoute {
+  Films = '/films',
+  PromoFilm = '/promo',
+}
+
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -24,6 +29,24 @@ export const TabsName = {
   DETAILS: 'Details',
   REVIEWS: 'Reviews',
 };
+
+export enum APIRoute {
+  Login = '/Login',
+  Logout = '/Logout',
+  Films = '/films',
+  Promo = '/promos',
+  Favorite = '/favorite',
+
+}
+
+
+export enum HTTP_CODE {
+  BAD_REQUEST = 400,
+  UNAUTHORIZED = 401,
+  NOT_FOUND = 404,
+}
+
+export const TIMEOUT_SHOW_ERROR = 2000;
 
 export const DEFAULT_GENRE = 'All genres';
 export const INITIAL_QUANTITY_FILMS = 8;

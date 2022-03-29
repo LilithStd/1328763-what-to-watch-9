@@ -4,16 +4,15 @@ import {PageContent} from '../../components/page-content/page-content';
 
 
 type MainPageProps =  {
-  films: FilmTypes[]
   filmPromo: FilmTypes
 }
 
 
-function Main({filmPromo, films}: MainPageProps) {
+function Main({filmPromo}: MainPageProps) {
   return (
     <>
       <FilmCard filmPromo = {filmPromo}/>
-      <PageContent films = {films}/>
+      <PageContent/>
     </>
   );
 }
