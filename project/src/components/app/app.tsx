@@ -10,17 +10,17 @@ import {NotFound} from '../../pages/not-found/not-found';
 import {PrivateRoute} from '../private-route/private-route';
 import {useAppSelector} from '../../hooks/reduser';
 import {LoadingScreen} from '../loading-screen/loading-screen';
-import {getFilms, getReviews, getFilmPromo, getDataLoading} from '../../store/selectors';
+import {getFilms, getReviews, getFilmPromo, getFilmsDataLoading} from '../../store/selectors';
 
 
 function App(){
   const filmPromo = useAppSelector(getFilmPromo);
   const films = useAppSelector(getFilms);
   const reviews = useAppSelector(getReviews);
-  const dataLoaded = useAppSelector(getDataLoading);
+  const filmsDataLoaded = useAppSelector(getFilmsDataLoading);
 
 
-  if (filmPromo === null || !dataLoaded) {
+  if (filmPromo === null || !filmsDataLoaded) {
     return (
       <LoadingScreen />
     );

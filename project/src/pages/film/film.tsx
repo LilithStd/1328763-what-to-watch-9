@@ -21,7 +21,6 @@ function Film({films, reviews}: FilmProps) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-
   const currentId = Number(params.id);
 
   const currentFilm = films.find((element) => element.id === currentId);
@@ -37,7 +36,6 @@ function Film({films, reviews}: FilmProps) {
   }
 
   const {id, name, posterImage,backgroundImage, genre, released} = currentFilm;
-
 
   const filteredFilms = films
     .filter((item) => (item.genre === currentFilm.genre && item.name !== currentFilm.name))

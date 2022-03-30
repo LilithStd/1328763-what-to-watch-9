@@ -8,9 +8,7 @@ import {fetchFilmsAction, checkAuthAction, fetchPromoFilmAction} from './store/a
 
 store.dispatch(fetchFilmsAction());
 store.dispatch(fetchPromoFilmAction());
-
 store.dispatch(checkAuthAction());
-
 
 ReactDOM.render(
   <React.StrictMode>

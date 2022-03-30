@@ -1,7 +1,8 @@
 import {useAppSelector} from '../../hooks/reduser';
+import {getError} from '../../store/selectors';
 
 function ErrorMessage(): JSX.Element | null {
-  const {error} = useAppSelector((state) => state);
+  const error = useAppSelector(getError);
 
   if (error) {
     return (

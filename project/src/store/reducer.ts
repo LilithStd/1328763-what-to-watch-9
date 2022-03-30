@@ -12,7 +12,7 @@ type GenreReducerProps = {
   filteredFilm : FilmTypes[];
   countFilmToshow: number;
   authorizationStatus: AuthorizationStatus;
-  isDataLoaded: boolean,
+  isFilmsDataLoaded: boolean,
   error: string;
 }
 
@@ -45,7 +45,7 @@ const initialState: GenreReducerProps = {
   filteredFilm: [],
   countFilmToshow: INITIAL_QUANTITY_FILMS,
   authorizationStatus: AuthorizationStatus.Unknown,
-  isDataLoaded: false,
+  isFilmsDataLoaded: false,
   error: '',
 };
 
@@ -61,7 +61,7 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadFilms, (state, action) => {
       state.films = action.payload;
-      state.isDataLoaded = true;
+      state.isFilmsDataLoaded = true;
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
