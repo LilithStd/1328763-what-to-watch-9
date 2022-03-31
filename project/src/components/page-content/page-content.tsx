@@ -1,16 +1,12 @@
 import {Footer} from '../footer/footer';
 import {Catalog} from '../catalog/catalog';
-import {FilmTypes} from '../../types/types';
 
-type PageContentProps = {
-  films: FilmTypes[]
-}
 
-function PageContent({films}: PageContentProps) {
+function PageContent() {
 
   return(
     <div className="page-content">
-      <Catalog films = {films}/>
+      <Catalog/>
       <Footer />
     </div>
   );

@@ -1,3 +1,6 @@
+import {FilmTypes} from '../src/types/types';
+import {DEFAULT_GENRE} from '../src/const';
+
 export const getFilmFormatDuration = (time: number) => {
   const hours = Math.floor(time / 60);
   const minutes = Math.floor(time % 60);
@@ -24,3 +27,8 @@ export function getTextRating(ratings: number) {
     return 'Awesome';
   }
 }
+
+export const getFilteredFilms = (movies: FilmTypes[], genre: string)  => genre === DEFAULT_GENRE
+  ? movies = movies.slice()
+  : movies.slice().filter((movie) => movie.genre === genre);
+

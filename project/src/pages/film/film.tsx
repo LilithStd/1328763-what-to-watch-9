@@ -1,4 +1,5 @@
-import {MouseEvent} from 'react';
+
+import {MouseEvent, useEffect} from 'react';
 import {Link, useParams, useNavigate} from 'react-router-dom';
 import {Footer} from '../../components/footer/footer';
 import {Header}  from '../../components/header/header';
@@ -7,6 +8,8 @@ import {FilmList} from '../../components/film-list/film-list';
 import {FilmTypes, CommentProps}  from '../../types/types';
 import {MORE_LIKE_FILM_COUNT} from '../../const';
 import {FilmTabs} from '../../pages/film/film-tabs/film-tabs';
+import {useAppDispatch} from '../../hooks/reduser';
+import {fetchCommentsAction} from '../../store/api-action';
 
 type FilmProps = {
   films: FilmTypes[];
@@ -16,10 +19,17 @@ type FilmProps = {
 function Film({films, reviews}: FilmProps) {
   const params = useParams();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const currentId = Number(params.id);
 
   const currentFilm = films.find((element) => element.id === currentId);
+
+  useEffect(() => {
+    if(currentId) {
+      dispatch(fetchCommentsAction(currentId));
+    }
+  }, [dispatch,currentId]);
 
   if (!currentFilm) {
     return <NotFound/>;

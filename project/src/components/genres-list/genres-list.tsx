@@ -10,7 +10,7 @@ function GenresList({films}: GenresListProps) {
   const genreList =[DEFAULT_GENRE, ...new Set(films.map((genre) => genre.genre))];
   return(
     <ul className="catalog__genres-list">
-      {genreList.map((genre) =>  <GenreItem key={genre} genre={genre} />)}
+      {genreList.map((genre) =>  <GenreItem key={genre} genre={genre}/>)}
     </ul>
   );
 }
