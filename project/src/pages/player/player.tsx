@@ -1,20 +1,17 @@
 import {MouseEvent} from 'react';
-import {useParams, useNavigate} from 'react-router-dom';
-
+import {useNavigate, useParams} from 'react-router-dom';
+import {useAppSelector} from '../../hooks/reduser';
+import {getFilms} from '../../store/selectors';
 import {NotFound} from '../../pages/not-found/not-found';
-import {FilmTypes}  from '../../types/types';
 
-type playerProps = {
-  films: FilmTypes[];
-}
 
-function Player({films}: playerProps) {
+function Player() {
   const params = useParams();
   const navigate = useNavigate();
 
   const currentId = Number(params.id);
-
-  const currentFilm = films.find((element) => element.id === currentId);
+  const storeFilms = useAppSelector(getFilms);
+  const currentFilm = storeFilms.find((element) => element.id === currentId);
 
   if (!currentFilm) {
     return <NotFound/>;

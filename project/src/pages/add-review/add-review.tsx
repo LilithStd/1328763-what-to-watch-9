@@ -3,20 +3,16 @@ import {Logo} from  '../../components/logo/logo';
 import {UserBlock} from '../../components/user-block/user-block';
 import {NotFound} from '../not-found/not-found';
 import {AddReviewForm} from '../add-review/add-review-form/add-review-form';
-import {FilmTypes} from '../../types/types';
+import {getCurrentFilm} from '../../store/selectors';
+import {useAppSelector} from '../../hooks/reduser';
 
 
-type AddReviewProps = {
-  films:FilmTypes[];
-}
-
-function AddReview({films}: AddReviewProps)  {
-
+function AddReview()  {
   const params = useParams();
 
   const currentId = Number(params.id);
 
-  const currentFilm = films.find((element) => element.id === currentId);
+  const currentFilm = useAppSelector(getCurrentFilm);
 
   if (!currentFilm) {
     return <NotFound/>;
@@ -49,7 +45,7 @@ function AddReview({films}: AddReviewProps)  {
           <img src={posterImage} alt={name} width={218} height={327} />
         </div>
       </div>
-      <AddReviewForm/>
+      <AddReviewForm id = {currentId}/>
     </section>
 
   );

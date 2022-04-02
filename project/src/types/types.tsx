@@ -36,4 +36,18 @@ type CommentProps = {
     }
 }
 
-export type {MovieProps, FilmTypes, CommentProps};
+type Comment = {
+  id: number;
+  dataComment :{
+    comment: string;
+    rating: number;
+  };
+}
+
+type StatusFilmData = {
+  status: number;
+  id: number;
+  isPromo: boolean;
+};
+
+export type {MovieProps, FilmTypes, CommentProps, Comment, StatusFilmData};

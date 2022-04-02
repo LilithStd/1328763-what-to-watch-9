@@ -1,22 +1,25 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeGenre, changeCountFilmToShow, loadFilms, requireAuthorization, setError, loadPromoFilm, loadCommentsServer} from '../store/actions';
+import { changeGenre, changeCountFilmToShow, loadFilms, requireAuthorization, setError, loadPromoFilm, loadComments, loadFavoriteFilms, loadMoreLikeFilms, loadCurrentFilm} from '../store/actions';
 import {FilmTypes, CommentProps} from '../types/types';
 import {DEFAULT_GENRE,INITIAL_QUANTITY_FILMS, AuthorizationStatus} from '../const';
 
 
-type GenreReducerProps = {
-  films : FilmTypes[];
-  filmPromo: FilmTypes | null;
-  genre: string;
-  reviews: CommentProps[];
-  filteredFilm : FilmTypes[];
-  countFilmToshow: number;
-  authorizationStatus: AuthorizationStatus;
-  isFilmsDataLoaded: boolean,
-  error: string;
+type ReducerProps = {
+  films : FilmTypes[]
+  filmPromo: FilmTypes
+  moreLikeFilms: FilmTypes[]
+  favoriteFilms: FilmTypes[]
+  currentFilm: FilmTypes;
+  genre: string
+  reviews: CommentProps[]
+  filteredFilms : FilmTypes[]
+  countFilmToshow: number
+  authorizationStatus: AuthorizationStatus
+  isFilmsDataLoaded: boolean
+  error: string
 }
 
-const filmPromoServ = {
+const filmPromo = {
   id: 0,
   name: '',
   posterImage: '',
@@ -37,12 +40,15 @@ const filmPromoServ = {
 };
 
 
-const initialState: GenreReducerProps = {
+const initialState: ReducerProps = {
   genre: DEFAULT_GENRE,
   films: [],
-  filmPromo: filmPromoServ,
+  filmPromo: filmPromo,
+  currentFilm: filmPromo,
   reviews: [],
-  filteredFilm: [],
+  filteredFilms: [],
+  moreLikeFilms: [],
+  favoriteFilms: [],
   countFilmToshow: INITIAL_QUANTITY_FILMS,
   authorizationStatus: AuthorizationStatus.Unknown,
   isFilmsDataLoaded: false,
@@ -66,7 +72,7 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
     })
-    .addCase(loadCommentsServer, (state, action) => {
+    .addCase(loadComments, (state, action) => {
       state.reviews = action.payload;
     })
     .addCase(setError, (state, action) => {
@@ -74,6 +80,15 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadPromoFilm, (state, action) => {
       state.filmPromo = action.payload;
+    })
+    .addCase(loadFavoriteFilms, (state, action) => {
+      state.favoriteFilms = action.payload;
+    })
+    .addCase(loadMoreLikeFilms, (state, action) => {
+      state.moreLikeFilms = action.payload;
+    })
+    .addCase(loadCurrentFilm, (state, action) => {
+      state.currentFilm = action.payload;
     });
 });
 
