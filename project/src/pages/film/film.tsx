@@ -5,29 +5,31 @@ import {Footer} from '../../components/footer/footer';
 import {Header}  from '../../components/header/header';
 import {NotFound} from '../../pages/not-found/not-found';
 import {FilmList} from '../../components/film-list/film-list';
-import {FilmTypes, CommentProps}  from '../../types/types';
-import {MORE_LIKE_FILM_COUNT} from '../../const';
 import {FilmTabs} from '../../pages/film/film-tabs/film-tabs';
-import {useAppDispatch} from '../../hooks/reduser';
-import {fetchCommentsAction} from '../../store/api-action';
+import {useAppDispatch,useAppSelector} from '../../hooks/reduser';
+import { getMoreLikeFilms, getAuthorizationStatus, getCurrentFilm, getReviews } from '../../store/selectors';
+import {fetchCommentsAction, fetchShowMoreFilmsAction, fetchCurrentFilmsAction} from '../../store/api-action';
+import {AuthorizationStatus} from '../../const';
 
-type FilmProps = {
-  films: FilmTypes[];
-  reviews: CommentProps[];
-}
 
-function Film({films, reviews}: FilmProps) {
+function Film() {
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
+  const moreLikeFilms = useAppSelector(getMoreLikeFilms);
+  const authStatus = useAppSelector(getAuthorizationStatus);
+  const currentFilm = useAppSelector(getCurrentFilm);
+  const reviews = useAppSelector(getReviews);
+
   const currentId = Number(params.id);
 
-  const currentFilm = films.find((element) => element.id === currentId);
 
   useEffect(() => {
     if(currentId) {
+      dispatch(fetchCurrentFilmsAction(currentId));
       dispatch(fetchCommentsAction(currentId));
+      dispatch(fetchShowMoreFilmsAction(currentId));
     }
   }, [dispatch,currentId]);
 
@@ -35,16 +37,18 @@ function Film({films, reviews}: FilmProps) {
     return <NotFound/>;
   }
 
-  const {id, name, posterImage,backgroundImage, genre, released} = currentFilm;
+  const {id, name, posterImage,backgroundImage, genre, released, isFavorite} = currentFilm;
 
-  const filteredFilms = films
-    .filter((item) => (item.genre === currentFilm.genre && item.name !== currentFilm.name))
-    .slice(0, MORE_LIKE_FILM_COUNT);
+  const filteredMoreLikeFilms = moreLikeFilms
+    .slice()
+    .filter((item) => (item.genre === currentFilm.genre && item.name !== currentFilm.name));
+
 
   const clickPlayHandler = (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();
     navigate(`/player/${currentFilm.id}`);
   };
+
 
   return(
     <>
@@ -71,11 +75,15 @@ function Film({films, reviews}: FilmProps) {
                 </button>
                 <button className="btn btn--list film-card__button" type="button">
                   <svg viewBox="0 0 19 20" width={19} height={20}>
-                    <use xlinkHref="#add" />
+                    <use xlinkHref={isFavorite ? '#in-list' : '#add'} />
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>
+                {
+                  authStatus === AuthorizationStatus.Auth
+                    ? <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>
+                    : ''
+                }
               </div>
             </div>
           </div>
@@ -94,7 +102,7 @@ function Film({films, reviews}: FilmProps) {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmList films = {filteredFilms}/>
+          <FilmList films = {filteredMoreLikeFilms}/>
         </section>
         <Footer />
       </div>

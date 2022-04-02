@@ -1,8 +1,8 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {api} from '../store';
 import {store} from '../store';
-import {FilmTypes} from '../types/types';
-import {loadFilms, requireAuthorization, setError, loadPromoFilm, loadCommentsServer} from './actions';
+import {FilmTypes, Comment} from '../types/types';
+import {loadFilms, requireAuthorization, setError, loadPromoFilm, loadComments, loadMoreLikeFilms, loadFavoriteFilms, loadCurrentFilm} from './actions';
 import {saveToken, dropToken} from '../services/token';
 import {APIRoute, AuthorizationStatus,TIMEOUT_SHOW_ERROR, FilmRoute} from '../const';
 import {errorHandle} from '../services/error-handle';
@@ -71,12 +71,24 @@ export const logoutAction = createAsyncThunk(
   },
 );
 
+export const commentsAction = createAsyncThunk(
+  'user/commentsSubmit',
+  async ({id, dataComment}: Comment ) => {
+    try{
+      await api.post<Comment>(`/comments/${id}`, dataComment);
+    }catch(error){
+      errorHandle(error);
+      store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+    }
+  },
+);
+
 export const fetchCommentsAction = createAsyncThunk(
   'data/fetchComments',
   async (id: number) => {
     try{
       const {data} = await api.get(`comments/${id}`);
-      store.dispatch(loadCommentsServer(data));
+      store.dispatch(loadComments(data));
     }catch(error){
       errorHandle(error);
     }
@@ -90,6 +102,43 @@ export const fetchPromoFilmAction = createAsyncThunk(
       const {data} = await api.get<FilmTypes>(FilmRoute.PromoFilm);
       store.dispatch(loadPromoFilm(data));
     } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const fetchShowMoreFilmsAction = createAsyncThunk(
+  'data/fetchShowMoreFilms',
+  async(id: number) => {
+    try{
+      const {data} = await api.get(`films/${id}/similar`);
+      store.dispatch(loadMoreLikeFilms(data));
+    }catch(error){
+      errorHandle(error);
+    }
+  },
+);
+
+export const fetchFavoriteFilms = createAsyncThunk(
+  'data/fetchFavoriteFilms',
+  async() => {
+    try{
+      const {data} = await api.get('/favorite');
+      store.dispatch(loadFavoriteFilms(data));
+    }catch(error){
+      errorHandle(error);
+    }
+  },
+);
+
+
+export const fetchCurrentFilmsAction = createAsyncThunk(
+  'data/fetchFilm',
+  async (id: number) => {
+    try{
+      const {data} = await api.get(`/films/${id}`);
+      store.dispatch(loadCurrentFilm(data));
+    }catch(error){
       errorHandle(error);
     }
   },

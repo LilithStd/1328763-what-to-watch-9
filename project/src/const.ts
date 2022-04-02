@@ -38,7 +38,12 @@ export const TabsName = {
   REVIEWS: 'Reviews',
 };
 
+
 export const rating: number[] = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+
+export const MIN_LENGTH_REVIEW = 50;
+
+export const MAX_LENGTH_REVIEW = 400;
 
 export const TIMER = 1000;
 

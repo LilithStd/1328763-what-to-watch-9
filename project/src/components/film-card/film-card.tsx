@@ -1,12 +1,20 @@
-import {FilmTypes} from '../../types/types';
+import {MouseEvent} from 'react';
+import {useNavigate} from 'react-router-dom';
 import {Header} from '../header/header';
+import {useAppSelector} from '../../hooks/reduser';
+import {getFilmPromo} from '../../store/selectors';
 
-type FilmCardProps = {
-  filmPromo : FilmTypes;
-}
 
-function FilmCard({filmPromo}: FilmCardProps) {
-  const {name, backgroundImage,posterImage, genre, released } = filmPromo;
+function FilmCard() {
+  const navigate = useNavigate();
+  const filmPromo = useAppSelector(getFilmPromo);
+  const {id, name, backgroundImage,posterImage, genre, released } = filmPromo;
+
+
+  const clickPlayHandler = (evt: MouseEvent<HTMLElement>) => {
+    evt.preventDefault();
+    navigate(`/player/${id}`);
+  };
 
   return(
     <section className="film-card">
@@ -31,7 +39,7 @@ function FilmCard({filmPromo}: FilmCardProps) {
             </p>
 
             <div className="film-card__buttons">
-              <button className="btn btn--play film-card__button" type="button">
+              <button className="btn btn--play film-card__button" type="button" onClick={clickPlayHandler}>
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>

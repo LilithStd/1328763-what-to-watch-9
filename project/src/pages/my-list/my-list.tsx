@@ -1,14 +1,12 @@
 import {Footer} from '../../components/footer/footer';
 import {FilmList} from '../../components/film-list/film-list';
 import {Logo} from '../../components/logo/logo';
-import {FilmTypes } from '../../types/types';
 import {UserBlock} from '../../components/user-block/user-block';
+import {useAppSelector} from '../../hooks/reduser';
+import {getFavoriteFilms} from '../../store/selectors';
 
-type MyListProps = {
-  films: FilmTypes[]
-}
-
-function MyList({films}: MyListProps) {
+function MyList() {
+  const favoriteFilms = useAppSelector(getFavoriteFilms);
   return(
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -18,7 +16,7 @@ function MyList({films}: MyListProps) {
       </header>
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <FilmList films = {films}/>
+        <FilmList films = {favoriteFilms}/>
       </section>
       <Footer/>
     </div>

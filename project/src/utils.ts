@@ -1,5 +1,5 @@
 import {FilmTypes} from '../src/types/types';
-import {DEFAULT_GENRE} from '../src/const';
+import {DEFAULT_GENRE, AuthorizationStatus, MAX_LENGTH_REVIEW, MIN_LENGTH_REVIEW} from '../src/const';
 
 export const getFilmFormatDuration = (time: number) => {
   const hours = Math.floor(time / 60);
@@ -28,7 +28,16 @@ export function getTextRating(ratings: number) {
   }
 }
 
+export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
+  authorizationStatus === AuthorizationStatus.Unknown;
+
 export const getFilteredFilms = (movies: FilmTypes[], genre: string)  => genre === DEFAULT_GENRE
   ? movies = movies.slice()
   : movies.slice().filter((movie) => movie.genre === genre);
 
+export  const checkValidForm = (formData:{rating: number, reviewText: string}) => {
+  if (formData.rating === 0 || (formData.reviewText.length <= MIN_LENGTH_REVIEW || formData.reviewText.length >= MAX_LENGTH_REVIEW)) {
+    return true;
+  }
+  return false;
+};

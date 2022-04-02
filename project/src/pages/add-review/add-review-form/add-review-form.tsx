@@ -1,17 +1,42 @@
-import { ChangeEvent, Fragment, useState } from 'react';
+import { ChangeEvent, Fragment, useState, FormEvent } from 'react';
+import {useNavigate} from 'react-router-dom';
 import {rating} from '../../../const';
+import {useAppDispatch} from '../../../hooks/reduser';
+import {commentsAction} from '../../../store/api-action';
+import {checkValidForm} from '../../../utils';
 
-function AddReviewForm()  {
+
+type AddReviewProps = {
+  id: number
+}
+
+function AddReviewForm({id}: AddReviewProps)  {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     rating: 0,
     reviewText: '',
   });
 
+  const addReviewSubmitHandler = (evt: FormEvent<HTMLFormElement> ) => {
+    evt.preventDefault();
+
+    const dataCommentFilm = {
+      id: id,
+      dataComment: {
+        comment: formData.reviewText,
+        rating: formData.rating,
+      },
+    };
+
+    dispatch(commentsAction(dataCommentFilm));
+    navigate(`/films/${id}`);
+  };
 
   return(
     <div className="add-review">
-      <form action="#" className="add-review__form">
+      <form action="#" className="add-review__form" onSubmit={addReviewSubmitHandler}>
         <div className="rating">
           <div className="rating__stars">
             {rating.map((element)  => (
@@ -36,7 +61,7 @@ function AddReviewForm()  {
             }}
           />
           <div className="add-review__submit">
-            <button className="add-review__btn" type="submit">Post</button>
+            <button className="add-review__btn" type="submit" disabled = {checkValidForm(formData)}>Post</button>
           </div>
         </div>
       </form>
