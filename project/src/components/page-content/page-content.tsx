@@ -1,7 +1,6 @@
 import {Footer} from '../footer/footer';
 import {Catalog} from '../catalog/catalog';
 
-
 function PageContent() {
 
   return(

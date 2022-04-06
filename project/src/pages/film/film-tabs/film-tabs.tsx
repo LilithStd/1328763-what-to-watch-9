@@ -1,16 +1,14 @@
 import {useState, useCallback } from 'react';
 import {TabsName} from '../../../const';
-import {FilmTypes, CommentProps} from '../../../types/types';
+import {FilmTypes, CommentReview} from '../../../types/types';
 import {FilmDetails}  from '../film-details/film-details';
 import {FilmOverview} from '../film-overview/film-overview';
 import {FilmReview} from '../film-review/film-review';
 
-
 type FilmTabsProps = {
   film: FilmTypes;
-  reviews: CommentProps[];
+  reviews: CommentReview[];
 }
-
 
 function FilmTabs ({film, reviews}: FilmTabsProps) {
   const [activeTab, setActiveTab] = useState(TabsName.OVERVIEW);

@@ -1,7 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../hooks/reduser';
-import { changeGenre} from '../../store/actions';
-import { getGenre } from '../../store/selectors';
-
+import { changeGenre} from '../../store/film-data/film-data';
+import { getGenre } from '../../store/film-data/selectors';
 
 type GenreItemProps = {
   genre: string;

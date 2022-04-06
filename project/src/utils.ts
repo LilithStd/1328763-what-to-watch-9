@@ -10,6 +10,10 @@ export const getFilmFormatDuration = (time: number) => {
   return `${hours}h ${minutes}m`;
 };
 
+export const getRemainingTime = (runTimeItem: number, currentTimeItem: number) => new Date(((runTimeItem * 60) - currentTimeItem) * 1000).toISOString().substring(11, 19).toString();
+
+export const getRemainingPercent = (runTimeItem: number, currentTimeItem: number) => ((currentTimeItem * 100) / (runTimeItem * 60)).toFixed(3);
+
 export function getTextRating(ratings: number) {
   if (0 <= ratings && ratings < 3) {
     return 'Bad';
@@ -41,3 +45,34 @@ export  const checkValidForm = (formData:{rating: number, reviewText: string}) =
   }
   return false;
 };
+
+export const addErrorMessage = (element: HTMLInputElement, message: string) => {
+  if (message) {
+    element.setCustomValidity(message);
+    element.style.border = '5px solid red';
+  } else {
+    element.setCustomValidity('');
+    element.style.border = '';
+  }
+
+  element.reportValidity();
+};
+
+export const checkValidatePassword = (value: string) => {
+  let message = '';
+  if(!(/(?=.*\d)(?=.*[a-z])/i.test(value))) {
+    return message = 'Пароль должен содержать цифры и буквы';
+  }
+
+  return message;
+};
+
+export const checkValidateEmail = (value: string) => {
+  let message = '';
+  if(!(/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/i.test(value))) {
+    return message = 'Поле email должно содержать корректные данные example@mail.com';
+  }
+
+  return message;
+};
+

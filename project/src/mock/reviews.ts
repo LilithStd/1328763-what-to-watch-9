@@ -1,6 +1,6 @@
-import { CommentProps } from '../types/types';
+import { CommentReview } from '../types/types';
 
-export const commentMock: CommentProps[] = [
+export const commentMock: CommentReview[] = [
   {
     comment: 'Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director\'s funniest and most exquisitely designed movies in years.',
     date: 'Wed Feb 23 2022 00:26:48 GMT+0200',

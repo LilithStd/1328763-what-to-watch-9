@@ -1,7 +1,10 @@
+import './loading-screen.css';
 
 function LoadingScreen()  {
   return (
-    <p>Loading ...</p>
+    <div id="preloader">
+      <div id="loader"></div>
+    </div>
   );
 }
 

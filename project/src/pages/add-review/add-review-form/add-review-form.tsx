@@ -1,37 +1,54 @@
-import { ChangeEvent, Fragment, useState, FormEvent } from 'react';
+import { ChangeEvent, Fragment, useState, FormEvent, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {rating} from '../../../const';
-import {useAppDispatch} from '../../../hooks/reduser';
-import {commentsAction} from '../../../store/api-action';
+import {rating, APIRoute, ReviewSendStatus} from '../../../const';
+import {useAppDispatch,useAppSelector} from '../../../hooks/reduser';
+import {getReviewSendStatus} from '../../../store/film-data/selectors';
+import {addReviewAction} from '../../../store/api-action';
 import {checkValidForm} from '../../../utils';
+import {sendReviewStatus} from '../../../store/film-data/film-data';
 
 
 type AddReviewProps = {
-  id: number
+  id: string
 }
 
 function AddReviewForm({id}: AddReviewProps)  {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const sendStatus = useAppSelector(getReviewSendStatus);
+  const [isSending, setIsSending] = useState<boolean>(false);
 
   const [formData, setFormData] = useState({
     rating: 0,
     reviewText: '',
   });
 
-  const addReviewSubmitHandler = (evt: FormEvent<HTMLFormElement> ) => {
+  useEffect (() => () => {
+    dispatch(sendReviewStatus(ReviewSendStatus.INITIAL));
+  }, [dispatch]);
+
+  const isDisabled = checkValidForm(formData);
+
+  useEffect (() => {
+    if (isSending && sendStatus === 'initial') {
+      navigate(`${APIRoute.Films}/${id}`);
+    }
+    setIsSending(sendStatus === 'sending');
+  }, [id, isSending, navigate, sendStatus]);
+
+  const addReviewSubmitHandler = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    const dataCommentFilm = {
-      id: id,
-      dataComment: {
-        comment: formData.reviewText,
-        rating: formData.rating,
-      },
-    };
-
-    dispatch(commentsAction(dataCommentFilm));
-    navigate(`/films/${id}`);
+    if (!isDisabled) {
+      const dataCommentFilm = {
+        id: id,
+        dataComment: {
+          comment: formData.reviewText,
+          rating: formData.rating,
+        },
+      };
+      dispatch(addReviewAction(dataCommentFilm));
+    }
   };
 
   return(
@@ -61,7 +78,7 @@ function AddReviewForm({id}: AddReviewProps)  {
             }}
           />
           <div className="add-review__submit">
-            <button className="add-review__btn" type="submit" disabled = {checkValidForm(formData)}>Post</button>
+            <button className="add-review__btn" type="submit" disabled={isDisabled || isSending}>Post</button>
           </div>
         </div>
       </form>

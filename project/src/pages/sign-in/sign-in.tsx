@@ -1,18 +1,28 @@
-import {useRef, FormEvent} from 'react';
+import {useRef, FormEvent, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {useAppDispatch} from '../../hooks/reduser';
+import {useAppDispatch, useAppSelector} from '../../hooks/reduser';
 import {loginAction} from '../../store/api-action';
 import {AuthData} from '../../types/auth-data';
 import {AppRoute} from '../../const';
 import {Footer} from '../../components/footer/footer';
 import {Logo} from '../../components/logo/logo';
+import { AuthorizationStatus } from '../../const';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
+import {addErrorMessage ,checkValidatePassword, checkValidateEmail} from '../../utils';
 
 function SignIn() {
-  const loginRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
-
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const authStatus = useAppSelector(getAuthorizationStatus);
+
+  useEffect(() => {
+    if (authStatus === AuthorizationStatus.Auth) {
+      navigate(AppRoute.Main);
+    }
+  });
+
+  const loginRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
@@ -40,11 +50,11 @@ function SignIn() {
         <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
           <div className="sign-in__fields">
             <div className="sign-in__field">
-              <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" ref={loginRef}/>
+              <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" ref={loginRef} onChange={(evt) => addErrorMessage(evt.target, checkValidateEmail(evt.target.value))}/>
               <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
             </div>
             <div className="sign-in__field">
-              <input className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" ref={passwordRef}/>
+              <input className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" ref={passwordRef} onChange={(evt) => addErrorMessage(evt.target, checkValidatePassword(evt.target.value))}/>
               <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
             </div>
           </div>
@@ -55,7 +65,6 @@ function SignIn() {
       </div>
       <Footer />
     </div>
-
   );
 }
 

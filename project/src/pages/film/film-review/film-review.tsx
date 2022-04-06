@@ -1,6 +1,6 @@
-import {CommentProps} from '../../../types/types';
+import {CommentReview} from '../../../types/types';
 type FilmReviewProps = {
-  reviews: CommentProps[];
+  reviews: CommentReview[];
 }
 
 function FilmReview({reviews} :FilmReviewProps) {

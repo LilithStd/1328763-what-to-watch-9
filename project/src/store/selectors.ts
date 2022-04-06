@@ -1,7 +1,7 @@
-import {FilmTypes, CommentProps} from '../types/types';
+import {FilmTypes, CommentReview} from '../types/types';
 import {AuthorizationStatus} from '../const';
 
-export const getReviews = (state: { reviews: CommentProps[] }) => state.reviews;
+export const getReviews = (state: { reviews: CommentReview[] }) => state.reviews;
 export const getFilms = (state: { films: FilmTypes[] }) => state.films;
 export const getCurrentFilm = (state: { currentFilm: FilmTypes }) => state.currentFilm;
 export const getFilteredFilm = (state: { filteredFilms : FilmTypes[]}) => state.filteredFilms;
