@@ -50,6 +50,7 @@ export const addErrorMessage = (element: HTMLInputElement, message: string) => {
   if (message) {
     element.setCustomValidity(message);
     element.style.border = '5px solid red';
+    setTimeout((() => element.style.border = ''), 3000);
   } else {
     element.setCustomValidity('');
     element.style.border = '';
@@ -58,21 +59,13 @@ export const addErrorMessage = (element: HTMLInputElement, message: string) => {
   element.reportValidity();
 };
 
-export const checkValidatePassword = (value: string) => {
-  let message = '';
-  if(!(/(?=.*\d)(?=.*[a-z])/i.test(value))) {
-    return message = 'Пароль должен содержать цифры и буквы';
-  }
+export const passwordTemplate = /(?=.*\d)(?=.*[a-z])/i;
 
-  return message;
+export const loginTemplate = /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/i;
+
+export const convertDate = (commentDate: Date): string => {
+  const year = commentDate.getFullYear();
+  const month = commentDate.toLocaleString('en', { month: 'long' });
+  const day = commentDate.getDate();
+  return `${month} ${day}, ${year}`;
 };
-
-export const checkValidateEmail = (value: string) => {
-  let message = '';
-  if(!(/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/i.test(value))) {
-    return message = 'Поле email должно содержать корректные данные example@mail.com';
-  }
-
-  return message;
-};
-

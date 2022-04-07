@@ -8,9 +8,10 @@ type GenresListProps  = {
 
 function GenresList({films}: GenresListProps) {
   const genreList =[DEFAULT_GENRE, ...new Set(films.map((genre) => genre.genre))];
+  const genreListToShow = genreList.slice(0, MAX_COUNT_GENRES_TO_SHOW);
   return(
     <ul className="catalog__genres-list">
-      {genreList.slice(0, MAX_COUNT_GENRES_TO_SHOW).map((genre) =>  <GenreItem key={genre} genre={genre}/>)}
+      {genreListToShow.map((genre) =>  <GenreItem key={genre} genre={genre}/>)}
     </ul>
   );
 }

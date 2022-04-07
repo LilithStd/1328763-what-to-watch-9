@@ -1,10 +1,4 @@
 
-type MovieProps = {
-  filmCardTitle: string,
-  filmCardGenre: string,
-  filmCardYear: number,
-}
-
 type FilmTypes = {
   id: number
   name: string
@@ -44,15 +38,10 @@ type Comment = {
   }
 }
 
-type StatusFilmData = {
-  status: number;
-  id: number;
-  isPromo: boolean;
-};
 
 type PostFilmToFavorite = {
   id: number,
   status: number,
 }
 
-export type {MovieProps, FilmTypes, PostFilmToFavorite, CommentReview, Comment, StatusFilmData};
+export type {FilmTypes, PostFilmToFavorite, CommentReview, Comment};

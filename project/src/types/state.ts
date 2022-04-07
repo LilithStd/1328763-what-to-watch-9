@@ -10,7 +10,6 @@ export type FilmData = {
   currentFilm: FilmTypes;
   genre: string
   reviews: CommentReview[]
-  filteredFilms : FilmTypes[]
   countFilmToshow: number
   reviewSendStatus: string
   isFilmsDataLoaded: boolean

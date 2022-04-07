@@ -32,4 +32,4 @@ function HistoryRouter({
   );
 }
 
-export default HistoryRouter;
+export {HistoryRouter};

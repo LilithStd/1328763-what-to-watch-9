@@ -46,7 +46,6 @@ function AddReview()  {
       </div>
       <AddReviewForm id = {currentId}/>
     </section>
-
   );
 }
 

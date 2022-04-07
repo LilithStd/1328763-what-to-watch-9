@@ -56,6 +56,15 @@ export const ReviewSendStatus = {
   INITIAL:'initial',
   SENDING:'sending',
   ERROR:'error',
+  SUCCESS:'success',
+};
+
+export const DATE_LOCAL = 'en-EN';
+
+export const DATE_LOCAL_OPTIONS = {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
 };
 
 export const rating: number[] = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];

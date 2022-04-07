@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {App} from './components/app/app';
 import {store} from './store/index';
-import {ErrorMessage} from './components/server-error-message/server-error-message';
+import {ErrorMessage} from './components/error-message/error-message';
 import {fetchFilmsAction, checkAuthAction, fetchPromoFilmAction} from './store/api-action';
 
 store.dispatch(fetchFilmsAction());

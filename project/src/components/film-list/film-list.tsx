@@ -1,4 +1,4 @@
-import { useState , useMemo} from 'react';
+import { useState } from 'react';
 import {FilmCardSmall} from '../film-card-small/film-card-small';
 import {FilmTypes} from '../../types/types';
 
@@ -11,7 +11,7 @@ function FilmList({films}: FilmListProps) {
 
   return(
     <div className="catalog__films-list">
-      {useMemo(() => films.map((film) => (<FilmCardSmall key = {film.id} film = {film} isActive={film.id === activeFilmId} onHover={setActiveFilmId}/>)), [activeFilmId,films])}
+      {films.map((film) => (<FilmCardSmall key = {film.id} film = {film} isActive={film.id === activeFilmId} onHover={setActiveFilmId}/>))}
     </div>
   );
 }

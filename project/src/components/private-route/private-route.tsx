@@ -16,5 +16,4 @@ function PrivateRoute (props: PrivateRouteProps) {
   );
 }
 
-
 export {PrivateRoute};

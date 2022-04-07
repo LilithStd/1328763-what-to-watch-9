@@ -2,7 +2,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {api} from '../store';
 import {store} from '../store';
 import {FilmTypes, Comment, PostFilmToFavorite} from '../types/types';
-import {loadFilms, loadPromoFilm, loadReviews, loadSimilarFilms, loadFavoriteFilms, loadCurrentFilm, addCurrentFilmToFavorite, addPromoFilmToFavorite, sendReviewStatus} from '../store/film-data/film-data';
+import {loadFilms, loadPromoFilm, loadReviews, loadSimilarFilms, loadFavoriteFilms, loadCurrentFilm, addCurrentFilmToFavorite, addPromoFilmToFavorite,resetFavoriteFilm, sendReviewStatus} from '../store/film-data/film-data';
 import {requireAuthorization} from '../store/user-process/user-process';
 import {setError} from '../store/error-data/error-data';
 import {saveToken, dropToken} from '../services/token';
@@ -67,6 +67,7 @@ export const logoutAction = createAsyncThunk(
       await api.delete(APIRoute.Logout);
       dropToken();
       store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+      store.dispatch(resetFavoriteFilm());
     } catch (error) {
       errorHandle(error);
     }
@@ -79,7 +80,7 @@ export const addReviewAction = createAsyncThunk(
     try{
       store.dispatch(sendReviewStatus(ReviewSendStatus.SENDING));
       await api.post<Comment>(`/comments/${id}`, dataComment);
-      store.dispatch(sendReviewStatus(ReviewSendStatus.INITIAL));
+      store.dispatch(sendReviewStatus(ReviewSendStatus.SUCCESS));
     }catch(error){
       errorHandle(error);
       store.dispatch(sendReviewStatus(ReviewSendStatus.ERROR));

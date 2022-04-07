@@ -32,6 +32,7 @@ function Film() {
       dispatch(fetchCommentsAction(currentId));
       dispatch(fetchShowMoreFilmsAction(currentId));
     }
+    dispatch(fetchCommentsAction(currentId));
   }, [dispatch,currentId, currentFilm]);
 
   if (!isCurrentFilmDataLoaded || !isReviewDataLoaded || !isSimilarFilmsDataLoaded) {

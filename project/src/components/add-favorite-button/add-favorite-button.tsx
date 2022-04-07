@@ -12,7 +12,6 @@ type AddFavoriteButtonProps = {
 function AddFavoriteButton({id, isFavorite}: AddFavoriteButtonProps) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
   const authStatus = useAppSelector(getAuthorizationStatus);
 
   const handleFavoriteClick = () => {
@@ -27,7 +26,7 @@ function AddFavoriteButton({id, isFavorite}: AddFavoriteButtonProps) {
   return (
     <button className="btn btn--list film-card__button" type="button" onClick={() => authStatus === AuthorizationStatus.Auth ? handleFavoriteClick(): handleFavoriteClickRedirect() }>
       <svg viewBox="0 0 19 20" width={19} height={20}>
-        <use xlinkHref={isFavorite ? '#in-list' : '#add'} />
+        <use xlinkHref={isFavorite && authStatus === AuthorizationStatus.Auth ? '#in-list' : '#add'} />
       </svg>
       <span>My list</span>
     </button>

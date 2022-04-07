@@ -6,7 +6,7 @@ import {getReviewSendStatus} from '../../../store/film-data/selectors';
 import {addReviewAction} from '../../../store/api-action';
 import {checkValidForm} from '../../../utils';
 import {sendReviewStatus} from '../../../store/film-data/film-data';
-
+import {setError} from '../../../store/error-data/error-data';
 
 type AddReviewProps = {
   id: string
@@ -16,30 +16,31 @@ function AddReviewForm({id}: AddReviewProps)  {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const sendStatus = useAppSelector(getReviewSendStatus);
-  const [isSending, setIsSending] = useState<boolean>(false);
-
+  const [isDisable, setIsDisable] = useState<boolean>(false);
   const [formData, setFormData] = useState({
     rating: 0,
     reviewText: '',
   });
+  const isDisabledForm = checkValidForm(formData);
 
-  useEffect (() => () => {
-    dispatch(sendReviewStatus(ReviewSendStatus.INITIAL));
-  }, [dispatch]);
-
-  const isDisabled = checkValidForm(formData);
-
-  useEffect (() => {
-    if (isSending && sendStatus === 'initial') {
-      navigate(`${APIRoute.Films}/${id}`);
+  useEffect(() => {
+    if(sendStatus === ReviewSendStatus.SENDING && !isDisable) {
+      setIsDisable(true);
     }
-    setIsSending(sendStatus === 'sending');
-  }, [id, isSending, navigate, sendStatus]);
+    if(sendStatus === ReviewSendStatus.SUCCESS) {
+      navigate(`${APIRoute.Films}/${id}`);
+      dispatch(sendReviewStatus(ReviewSendStatus.INITIAL));
+    }
+    if(sendStatus === ReviewSendStatus.ERROR) {
+      dispatch(setError('Ошибка отправки отзыва, попробуйте позже'));
+      setIsDisable(false);
+    }
+
+  }, [dispatch, id, isDisable, navigate, sendStatus]);
 
   const addReviewSubmitHandler = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-
-    if (!isDisabled) {
+    if (!isDisabledForm) {
       const dataCommentFilm = {
         id: id,
         dataComment: {
@@ -47,13 +48,15 @@ function AddReviewForm({id}: AddReviewProps)  {
           rating: formData.rating,
         },
       };
+
       dispatch(addReviewAction(dataCommentFilm));
+
     }
   };
 
   return(
     <div className="add-review">
-      <form action="#" className="add-review__form" onSubmit={addReviewSubmitHandler}>
+      <form action="#" className={`add-review__form ${isDisable ? ' add-review__form-disabled' : ''}`} onSubmit={addReviewSubmitHandler}>
         <div className="rating">
           <div className="rating__stars">
             {rating.map((element)  => (
@@ -78,7 +81,7 @@ function AddReviewForm({id}: AddReviewProps)  {
             }}
           />
           <div className="add-review__submit">
-            <button className="add-review__btn" type="submit" disabled={isDisabled || isSending}>Post</button>
+            <button className="add-review__btn" type="submit" disabled={isDisabledForm || isDisable}>Post</button>
           </div>
         </div>
       </form>

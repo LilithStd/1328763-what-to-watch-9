@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace , DEFAULT_GENRE, INITIAL_QUANTITY_FILMS, ReviewSendStatus} from '../../const';
 import { FilmData} from '../../types/state';
 
-
 const filmPromo = {
   id: 0,
   name: '',
@@ -29,7 +28,6 @@ const initialState: FilmData = {
   filmPromo: filmPromo,
   currentFilm: filmPromo,
   reviews: [],
-  filteredFilms: [],
   similarFilms: [],
   favoriteFilms: [],
   reviewSendStatus: ReviewSendStatus.INITIAL,
@@ -80,6 +78,9 @@ export const filmData = createSlice({
     addPromoFilmToFavorite: (state, action) => {
       state.filmPromo.isFavorite = action.payload;
     },
+    resetFavoriteFilm: (state) => {
+      state.favoriteFilms = [];
+    },
     sendReviewStatus: (state, action) => {
       state.reviewSendStatus = action.payload;
     },
@@ -90,4 +91,4 @@ export const filmData = createSlice({
   },
 });
 
-export const { loadCurrentFilm,loadFavoriteFilms,sendReviewStatus, loadPromoFilm, loadFilms, loadSimilarFilms, loadReviews,addCurrentFilmToFavorite, changeGenre, changeCountFilmToShow, addPromoFilmToFavorite } = filmData.actions;
+export const { loadCurrentFilm,loadFavoriteFilms,sendReviewStatus, loadPromoFilm, loadFilms, resetFavoriteFilm, loadSimilarFilms, loadReviews,addCurrentFilmToFavorite, changeGenre, changeCountFilmToShow, addPromoFilmToFavorite } = filmData.actions;

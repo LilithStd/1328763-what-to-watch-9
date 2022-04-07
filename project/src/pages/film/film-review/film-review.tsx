@@ -1,27 +1,26 @@
 import {CommentReview} from '../../../types/types';
+import {convertDate} from '../../../utils';
+
 type FilmReviewProps = {
-  reviews: CommentReview[];
+  review: CommentReview;
 }
 
-function FilmReview({reviews} :FilmReviewProps) {
-  return(
-    <div className="film-card__reviews film-card__row">
-      <div className="film-card__reviews-col">
-        {reviews.map((element) => (
-          <div className="review" key = {element.id}>
-            <blockquote className="review__quote">
-              <p className="review__text">{element.comment}</p>
-              <footer className="review__details">
-                <cite className="review__author">{element.user.name}</cite>
-                <time className="review__date" dateTime={element.date}>{element.date}</time>
-              </footer>
-            </blockquote>
-            <div className="review__rating">{element.rating}</div>
-          </div>
-        ))}
-      </div>
-    </div>
+function FilmReview({review} :FilmReviewProps) {
+  const {comment,user, date, rating} = review;
+  const {name} = user;
+  const reviewDate = new Date(date);
 
+  return(
+    <div className="review">
+      <blockquote className="review__quote">
+        <p className="review__text">{comment}</p>
+        <footer className="review__details">
+          <cite className="review__author">{name}</cite>
+          <time className="review__date" dateTime={date}>{convertDate(reviewDate)}</time>
+        </footer>
+      </blockquote>
+      <div className="review__rating">{rating}</div>
+    </div>
   );
 }
 
