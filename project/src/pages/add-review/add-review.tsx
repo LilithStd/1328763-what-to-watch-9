@@ -3,14 +3,13 @@ import {Logo} from  '../../components/logo/logo';
 import {UserBlock} from '../../components/user-block/user-block';
 import {NotFound} from '../not-found/not-found';
 import {AddReviewForm} from '../add-review/add-review-form/add-review-form';
-import {getCurrentFilm} from '../../store/selectors';
+import {getCurrentFilm} from '../../store/film-data/selectors';
 import {useAppSelector} from '../../hooks/reduser';
-
 
 function AddReview()  {
   const params = useParams();
 
-  const currentId = Number(params.id);
+  const currentId = String(params.id);
 
   const currentFilm = useAppSelector(getCurrentFilm);
 
@@ -47,7 +46,6 @@ function AddReview()  {
       </div>
       <AddReviewForm id = {currentId}/>
     </section>
-
   );
 }
 

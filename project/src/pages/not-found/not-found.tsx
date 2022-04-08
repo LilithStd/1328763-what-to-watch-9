@@ -1,4 +1,5 @@
 import {Footer} from '../../components/footer/footer';
+
 function NotFound() {
   return (
     <div className="user-page">

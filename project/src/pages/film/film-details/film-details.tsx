@@ -10,8 +10,6 @@ function FilmDetails ({film}: FilmDetailsProps) {
 
   const {director, starring, genre, released, runTime} = film;
 
-  // const actors = starring.join('<br />');
-
   return (
     <div className="film-card__text film-card__row">
       <div className="film-card__text-col">

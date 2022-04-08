@@ -10,6 +10,10 @@ export const getFilmFormatDuration = (time: number) => {
   return `${hours}h ${minutes}m`;
 };
 
+export const getRemainingTime = (runTimeItem: number, currentTimeItem: number) => new Date(((runTimeItem * 60) - currentTimeItem) * 1000).toISOString().substring(11, 19).toString();
+
+export const getRemainingPercent = (runTimeItem: number, currentTimeItem: number) => ((currentTimeItem * 100) / (runTimeItem * 60)).toFixed(3);
+
 export function getTextRating(ratings: number) {
   if (0 <= ratings && ratings < 3) {
     return 'Bad';
@@ -40,4 +44,28 @@ export  const checkValidForm = (formData:{rating: number, reviewText: string}) =
     return true;
   }
   return false;
+};
+
+export const addErrorMessage = (element: HTMLInputElement, message: string) => {
+  if (message) {
+    element.setCustomValidity(message);
+    element.style.border = '5px solid red';
+    setTimeout((() => element.style.border = ''), 3000);
+  } else {
+    element.setCustomValidity('');
+    element.style.border = '';
+  }
+
+  element.reportValidity();
+};
+
+export const passwordTemplate = /(?=.*\d)(?=.*[a-z])/i;
+
+export const loginTemplate = /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/i;
+
+export const convertDate = (commentDate: Date): string => {
+  const year = commentDate.getFullYear();
+  const month = commentDate.toLocaleString('en', { month: 'long' });
+  const day = commentDate.getDate();
+  return `${month} ${day}, ${year}`;
 };

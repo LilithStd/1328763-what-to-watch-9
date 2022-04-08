@@ -1,10 +1,12 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {api} from '../store';
 import {store} from '../store';
-import {FilmTypes, Comment} from '../types/types';
-import {loadFilms, requireAuthorization, setError, loadPromoFilm, loadComments, loadMoreLikeFilms, loadFavoriteFilms, loadCurrentFilm} from './actions';
+import {FilmTypes, Comment, PostFilmToFavorite} from '../types/types';
+import {loadFilms, loadPromoFilm, loadReviews, loadSimilarFilms, loadFavoriteFilms, loadCurrentFilm, addCurrentFilmToFavorite, addPromoFilmToFavorite,resetFavoriteFilm, sendReviewStatus} from '../store/film-data/film-data';
+import {requireAuthorization} from '../store/user-process/user-process';
+import {setError} from '../store/error-data/error-data';
 import {saveToken, dropToken} from '../services/token';
-import {APIRoute, AuthorizationStatus,TIMEOUT_SHOW_ERROR, FilmRoute} from '../const';
+import {APIRoute, AuthorizationStatus,TIMEOUT_SHOW_ERROR, FilmRoute, ReviewSendStatus} from '../const';
 import {errorHandle} from '../services/error-handle';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
@@ -65,19 +67,23 @@ export const logoutAction = createAsyncThunk(
       await api.delete(APIRoute.Logout);
       dropToken();
       store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+      store.dispatch(resetFavoriteFilm());
     } catch (error) {
       errorHandle(error);
     }
   },
 );
 
-export const commentsAction = createAsyncThunk(
+export const addReviewAction = createAsyncThunk(
   'user/commentsSubmit',
   async ({id, dataComment}: Comment ) => {
     try{
+      store.dispatch(sendReviewStatus(ReviewSendStatus.SENDING));
       await api.post<Comment>(`/comments/${id}`, dataComment);
+      store.dispatch(sendReviewStatus(ReviewSendStatus.SUCCESS));
     }catch(error){
       errorHandle(error);
+      store.dispatch(sendReviewStatus(ReviewSendStatus.ERROR));
       store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
   },
@@ -88,7 +94,7 @@ export const fetchCommentsAction = createAsyncThunk(
   async (id: number) => {
     try{
       const {data} = await api.get(`comments/${id}`);
-      store.dispatch(loadComments(data));
+      store.dispatch(loadReviews(data));
     }catch(error){
       errorHandle(error);
     }
@@ -112,7 +118,7 @@ export const fetchShowMoreFilmsAction = createAsyncThunk(
   async(id: number) => {
     try{
       const {data} = await api.get(`films/${id}/similar`);
-      store.dispatch(loadMoreLikeFilms(data));
+      store.dispatch(loadSimilarFilms(data));
     }catch(error){
       errorHandle(error);
     }
@@ -139,6 +145,20 @@ export const fetchCurrentFilmsAction = createAsyncThunk(
       const {data} = await api.get(`/films/${id}`);
       store.dispatch(loadCurrentFilm(data));
     }catch(error){
+      errorHandle(error);
+    }
+  },
+);
+
+export const postFilmToFavorite = createAsyncThunk(
+  'data/pushFavoriteFilms',
+  async ({id, status}: PostFilmToFavorite) => {
+    try {
+      await api.post<PostFilmToFavorite>(`${APIRoute.Favorite}/${id}/${status}`);
+      store.dispatch(fetchFavoriteFilms());
+      store.dispatch(addCurrentFilmToFavorite(status));
+      store.dispatch(addPromoFilmToFavorite(status));
+    } catch (error) {
       errorHandle(error);
     }
   },

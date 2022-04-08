@@ -1,6 +1,6 @@
 import request from 'axios';
 import {store} from '../store';
-import {setError} from '../store/actions';
+import {setError} from '../store/error-data/error-data';
 import {clearErrorAction} from '../store/api-action';
 import {ErrorType} from '../types/error';
 import {HTTP_CODE} from '../const';

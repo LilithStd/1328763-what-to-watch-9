@@ -11,23 +11,21 @@ import {NotFound} from '../../pages/not-found/not-found';
 import {PrivateRoute} from '../private-route/private-route';
 import {useAppSelector} from '../../hooks/reduser';
 import {LoadingScreen} from '../loading-screen/loading-screen';
-import HistoryRouter from '../history-route/history-route';
+import {HistoryRouter} from '../history-route/history-route';
 import browserHistory from '../../browser-history';
-import {getFilmPromo, getFilmsDataLoading, getAuthorizationStatus} from '../../store/selectors';
-
+import {getFilmPromo, getFilmsDataLoaded} from '../../store/film-data/selectors';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 
 function App(){
   const filmPromo = useAppSelector(getFilmPromo);
-  const filmsDataLoaded = useAppSelector(getFilmsDataLoading);
+  const filmsDataLoaded = useAppSelector(getFilmsDataLoaded);
   const authStatus = useAppSelector(getAuthorizationStatus);
-
 
   if (filmPromo === null || !filmsDataLoaded || isCheckedAuth(authStatus)) {
     return (
       <LoadingScreen />
     );
   }
-
 
   return (
     <HistoryRouter history={browserHistory}>

@@ -3,10 +3,11 @@ import {FilmList} from '../../components/film-list/film-list';
 import {Logo} from '../../components/logo/logo';
 import {UserBlock} from '../../components/user-block/user-block';
 import {useAppSelector} from '../../hooks/reduser';
-import {getFavoriteFilms} from '../../store/selectors';
+import {getFavoriteFilms} from '../../store/film-data/selectors';
 
 function MyList() {
   const favoriteFilms = useAppSelector(getFavoriteFilms);
+
   return(
     <div className="user-page">
       <header className="page-header user-page__head">

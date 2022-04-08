@@ -1,5 +1,5 @@
 import {useAppDispatch} from '../../hooks/reduser';
-import {changeCountFilmToShow} from '../../store/actions';
+import {changeCountFilmToShow} from '../../store/film-data/film-data';
 
 function ShowMoreButton() {
   const dispatch = useAppDispatch();

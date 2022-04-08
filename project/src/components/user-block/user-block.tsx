@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom';
 import {AppRoute,AuthorizationStatus} from '../../const';
 import {useAppDispatch,useAppSelector} from '../../hooks/reduser';
 import {logoutAction} from '../../store/api-action';
-import {getAuthorizationStatus} from '../../store/selectors';
+import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import browserHistory from '../../browser-history';
 
 function UserBlock()  {
