@@ -59,12 +59,12 @@ export const ReviewSendStatus = {
   SUCCESS:'success',
 };
 
-export const DATE_LOCAL = 'en-EN';
-
-export const DATE_LOCAL_OPTIONS = {
-  day: 'numeric',
-  month: 'long',
-  year: 'numeric',
+export const RatingRatio = {
+  BAD: 0,
+  NORMAL: 3,
+  GOOD: 5,
+  VERY_GOOD: 8,
+  AWESOME: 10,
 };
 
 export const rating: number[] = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];

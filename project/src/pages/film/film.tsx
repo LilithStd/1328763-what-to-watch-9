@@ -11,7 +11,7 @@ import {useAppDispatch,useAppSelector} from '../../hooks/reduser';
 import { getSimilarFilms, getCurrentFilm, getReviews, getReviewsDataLoaded, getCurrentFilmDataLoaded, getSimilarFilmsDataLoaded} from '../../store/film-data/selectors';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {fetchCommentsAction, fetchShowMoreFilmsAction, fetchCurrentFilmsAction} from '../../store/api-action';
-import {AuthorizationStatus} from '../../const';
+import {AuthorizationStatus, MORE_LIKE_FILM_COUNT} from '../../const';
 
 function Film() {
   const params = useParams();
@@ -51,7 +51,8 @@ function Film() {
 
   const filteredMoreLikeFilms = moreLikeFilms
     .slice()
-    .filter((item) => (item.genre === currentFilm.genre && item.name !== currentFilm.name));
+    .filter((item) => (item.genre === currentFilm.genre && item.name !== currentFilm.name))
+    .slice(0, MORE_LIKE_FILM_COUNT);
 
   const clickPlayHandler = (evt: MouseEvent<HTMLElement>) => {
     evt.preventDefault();

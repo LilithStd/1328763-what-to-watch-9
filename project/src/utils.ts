@@ -1,5 +1,5 @@
 import {FilmTypes} from '../src/types/types';
-import {DEFAULT_GENRE, AuthorizationStatus, MAX_LENGTH_REVIEW, MIN_LENGTH_REVIEW} from '../src/const';
+import {DEFAULT_GENRE, AuthorizationStatus, MAX_LENGTH_REVIEW, MIN_LENGTH_REVIEW, RatingRatio} from '../src/const';
 
 export const getFilmFormatDuration = (time: number) => {
   const hours = Math.floor(time / 60);
@@ -15,19 +15,19 @@ export const getRemainingTime = (runTimeItem: number, currentTimeItem: number) =
 export const getRemainingPercent = (runTimeItem: number, currentTimeItem: number) => ((currentTimeItem * 100) / (runTimeItem * 60)).toFixed(3);
 
 export function getTextRating(ratings: number) {
-  if (0 <= ratings && ratings < 3) {
+  if (RatingRatio.BAD <= ratings && ratings < RatingRatio.NORMAL) {
     return 'Bad';
   }
-  if (3 <= ratings && ratings < 5) {
+  if (RatingRatio.NORMAL <= ratings && ratings < RatingRatio.GOOD) {
     return 'Normal';
   }
-  if (5 <= ratings && ratings < 8) {
+  if (RatingRatio.GOOD <= ratings && ratings < RatingRatio.VERY_GOOD) {
     return 'Good';
   }
-  if (8 <= ratings && ratings < 10) {
+  if (RatingRatio.VERY_GOOD <= ratings && ratings < RatingRatio.AWESOME) {
     return 'Very good';
   }
-  if (ratings === 10) {
+  if (ratings === RatingRatio.AWESOME) {
     return 'Awesome';
   }
 }
