@@ -137,7 +137,6 @@ export const fetchFavoriteFilms = createAsyncThunk(
   },
 );
 
-
 export const fetchCurrentFilmsAction = createAsyncThunk(
   'data/fetchFilm',
   async (id: number) => {
@@ -152,12 +151,11 @@ export const fetchCurrentFilmsAction = createAsyncThunk(
 
 export const postFilmToFavorite = createAsyncThunk(
   'data/pushFavoriteFilms',
-  async ({id, status}: PostFilmToFavorite) => {
+  async ({id, status, isPromo}: PostFilmToFavorite) => {
     try {
       await api.post<PostFilmToFavorite>(`${APIRoute.Favorite}/${id}/${status}`);
       store.dispatch(fetchFavoriteFilms());
-      store.dispatch(addCurrentFilmToFavorite(status));
-      store.dispatch(addPromoFilmToFavorite(status));
+      isPromo ? store.dispatch(addPromoFilmToFavorite(status)) : store.dispatch(addCurrentFilmToFavorite(status));
     } catch (error) {
       errorHandle(error);
     }

@@ -10,6 +10,7 @@ import { AuthorizationStatus } from '../../const';
 import {getAuthorizationStatus} from '../../store/user-process/selectors';
 import {passwordTemplate, loginTemplate} from '../../utils';
 
+
 function SignIn() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

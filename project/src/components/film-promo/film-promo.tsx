@@ -43,7 +43,7 @@ function FilmCard() {
                 </svg>
                 <span>Play</span>
               </button>
-              <AddFavoriteButton id={id} isFavorite={isFavorite}/>
+              <AddFavoriteButton id={id} isFavorite={isFavorite} isPromo/>
             </div>
           </div>
         </div>

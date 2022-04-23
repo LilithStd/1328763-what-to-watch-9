@@ -42,6 +42,7 @@ type Comment = {
 type PostFilmToFavorite = {
   id: number,
   status: number,
+  isPromo?: boolean
 }
 
 export type {FilmTypes, PostFilmToFavorite, CommentReview, Comment};
